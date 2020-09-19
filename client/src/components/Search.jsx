@@ -21,17 +21,6 @@ class Search extends React.Component {
   search() {
     this.props.onSearch(this.state.term);
     console.log('search props: ', JSON.stringify(this.props));
-    // $.ajax({
-    //   url: '/repos',
-    //   type: 'GET',
-    //   success: (res) => {
-    //     this.setState({term: res.data});
-    //     console.log(res.data);
-    //   },
-    //   error: (err) => {
-    //     console.error(err);
-    //   }
-    // })
   }
 
   render() {
