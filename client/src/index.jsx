@@ -10,8 +10,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       repos: [],
-      top25: [],
-      username: ''
+      // top25: [],
+      // username: ''
     }
 
     this.search = this.search.bind(this);
@@ -21,34 +21,55 @@ class App extends React.Component {
     // console.log(this.state.repos);
   }
 
-  addUser (event) {
-    event.preventDefault();
-    Axios.post('/repos', {
-      name: this.state.name
-    })
-      .then(res => {
-        console.log('res in addUser: ', res);
-        // this.getAllMethod() <---- need to create get all
-      })
-      .catch(err => {
-        console.error(err);
-      })
-  }
+  // addUser (event) {
+  //   event.preventDefault();
+  //   Axios.post('/repos', {
+  //     name: this.state.name
+  //   })
+  //     .then(res => {
+  //       console.log('res in addUser: ', res);
+  //       // this.getAllMethod() <---- need to create get all
+  //     })
+  //     .catch(err => {
+  //       console.error(err);
+  //     })
+  // }
+
+  // getUserRepo () {
+  //   let username = this.state.username;
+  //   Axios.get(`http://localhost:1128/repos/${username}`)
+  //     .then(res => {
+  //       this.setState({username: res.data.username}, () => {
+  //         console.log(this.state.username);
+  //       })
+  //     })
+  //     .catch(err => {
+  //       console.error(err);
+  //     })
+  // }
 
   search (term) {
     console.log(`${term} was searched`);
-    // get input from field after submit and add to state
-    event.preventDefault(); // do I need this?
-    this.setState({username: term});
-    console.log('username from search: ', this.state.username);
-    this.getUser();
+    $.ajax({
+      url: '/repos',
+      type: 'POST',
+      data: '{term}',
+      dataType: "json",
+      success: (res) => {
+        // this.setState({repos: res.data});
+        console.log('res.data: ', res.data);
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    })
   }
 
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos}/>
-      <Search onSearch={this.search}/>
+      <Search onSearch={this.search.bind(this)}/>
     </div>)
   }
 }

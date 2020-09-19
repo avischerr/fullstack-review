@@ -13,3 +13,7 @@ create table repos (
   user integer,
   forks integer
 );
+
+insert into users (id, name) values (583231, 'octocat');
+
+insert into repos (id, name, user, forks) values (18221276, 'git-consortium', 583231, 24);

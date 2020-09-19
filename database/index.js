@@ -21,9 +21,20 @@ const addUser = (input, cb) => {
   })
 };
 
+const getUser = (username, cb) => {
+  connection.query(`select * from repos, users where users.name = ${username} and repos.user = users.id`, (err, result) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, result);
+    }
+  })
+}
+
 module.exports = {
   connection,
-  addUser
+  addUser,
+  getUser
 };
 
 
